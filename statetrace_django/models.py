@@ -1,8 +1,12 @@
 import uuid
-from .utils import new_id
 from django.db import models
 from django.db.models import JSONField as JSONBField
 from django.utils import timezone
+import time
+
+
+def new_id():
+    return int(time.monotonic() * 1000000) % 2147483647
 
 
 class JSONField(JSONBField):
@@ -17,7 +21,6 @@ class Annotation(models.Model):
     id = models.IntegerField()
     kind = models.TextField()
 
-    frame_length_ms = models.IntegerField(null=True)
     meta = JSONField(null=True)
     parent_id = models.IntegerField(null=True)
     parent_timestamp = models.DateTimeField(null=True)
@@ -25,6 +28,7 @@ class Annotation(models.Model):
     action_url = models.TextField(null=True)
     action_method = models.TextField(null=True)
     action_version = models.TextField(null=True)
+    action_length_ms = models.IntegerField(null=True)
 
     session_client_user_agent = models.TextField(null=True)
     session_application_type = models.TextField(null=True)
@@ -70,7 +74,7 @@ class Annotation(models.Model):
         action_version=None,
         meta=None,
         timestamp=None,
-        frame_length_ms=None,
+        action_length_ms=None,
     ):
         return Annotation.objects.create(
             kind="_st.app.act",
@@ -82,5 +86,5 @@ class Annotation(models.Model):
             action_url=action_url,
             action_method=action_method,
             action_version=action_version,
-            frame_length_ms=frame_length_ms,
+            action_length_ms=action_length_ms,
         )

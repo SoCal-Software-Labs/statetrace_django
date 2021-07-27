@@ -9,7 +9,7 @@ Adds StateTrace annotation functionality to Django applications.
 python -m pip install git+https://github.com/SoCal-Software-Labs/statetrace_django
 ```
 
-In Settings.py add statetrace django to installed apps and middleware.
+In Settings.py add statetrace django to installed apps and middleware. Make sure to make it the last entry in both lists.
 
 
 ```python
@@ -44,7 +44,6 @@ def session_meta(request):
 
 ```python
 STATETRACE_ACTION_META  = "myapp.statetrace.action_meta"
-
 STATETRACE_SESSION_META = "myapp.statetrace.session_meta"
 ```
 
@@ -63,4 +62,13 @@ def filter_func(request):
 
 ```python
 STATETRACE_REQUEST_FILTER = "myapp.statetrace.filter_func"
+```
+
+
+## Setting up Application Identifiers
+Setting these variables will help you identify the point in your code when the tranaction happened
+
+```python
+STATETRACE_APPLICATION_ID = "git@github.com:our_org/our-prod-app.git" # Identify the code base
+STATETRACE_APPLICATION_VERSION = "1.0" # Should be a git tag or commit to identify the point in code
 ```

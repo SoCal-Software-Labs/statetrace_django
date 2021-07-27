@@ -84,22 +84,25 @@ def statetrace_middleware(get_response):
 
         (parent_timestamp, parent_id) = process_session_frame(request)
 
-        with transaction.atomic():
-            start = time_ms()
-            action_meta = statetrace_action_meta_func(request)
+        if statetrace_filter_func(request):
+            with transaction.atomic():
+                start = time_ms()
+                action_meta = statetrace_action_meta_func(request)
 
-            response = get_response(request)
+                response = get_response(request)
 
-            if statetrace_filter_func(request):
+                
                 Annotation.log_action(
                     parent_timestamp,
                     parent_id,
                     action_url=request.build_absolute_uri(),
                     action_method=request.method,
                     action_version=application_version,
-                    frame_length_ms=time_ms() - start,
+                    action_length_ms=time_ms() - start,
                     meta=action_meta,
                 )
-            return response
+                return response
+        else:
+            return get_response(request)
 
     return middleware
