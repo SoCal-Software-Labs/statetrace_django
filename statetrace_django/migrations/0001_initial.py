@@ -9,33 +9,40 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Annotation',
+            name="Annotation",
             fields=[
-                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('timestamp', models.DateTimeField()),
-                ('id', models.IntegerField()),
-                ('kind', models.TextField()),
-                ('frame_length_ms', models.IntegerField(null=True)),
-                ('meta', statetrace_django.models.JSONField(null=True)),
-                ('parent_id', models.IntegerField(null=True)),
-                ('parent_timestamp', models.DateTimeField(null=True)),
-                ('action_url', models.TextField(null=True)),
-                ('action_method', models.TextField(null=True)),
-                ('action_version', models.TextField(null=True)),
-                ('session_client_user_agent', models.TextField(null=True)),
-                ('session_application_type', models.TextField(null=True)),
-                ('session_application_id', models.TextField(null=True)),
-                ('session_actor_id', models.TextField(null=True)),
-                ('session_actor_full_name', models.TextField(null=True)),
-                ('session_actor_avatar', models.TextField(null=True)),
+                (
+                    "uuid",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("timestamp", models.DateTimeField()),
+                ("id", models.IntegerField()),
+                ("kind", models.TextField()),
+                ("frame_length_ms", models.IntegerField(null=True)),
+                ("meta", statetrace_django.models.JSONField(null=True)),
+                ("parent_id", models.IntegerField(null=True)),
+                ("parent_timestamp", models.DateTimeField(null=True)),
+                ("action_url", models.TextField(null=True)),
+                ("action_method", models.TextField(null=True)),
+                ("action_version", models.TextField(null=True)),
+                ("session_client_user_agent", models.TextField(null=True)),
+                ("session_application_type", models.TextField(null=True)),
+                ("session_application_id", models.TextField(null=True)),
+                ("session_actor_id", models.TextField(null=True)),
+                ("session_actor_full_name", models.TextField(null=True)),
+                ("session_actor_avatar", models.TextField(null=True)),
             ],
             options={
-                'db_table': 'statetrace_annotations',
+                "db_table": "statetrace_annotations",
             },
         ),
     ]
