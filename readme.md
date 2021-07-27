@@ -6,7 +6,7 @@ Adds StateTrace annotation functionality to Django applications.
 ## Installation
 
 ```bash
-python -m pip install git+https://github.com/SoCal-Software-Labs/django_statetrace
+python -m pip install git+https://github.com/SoCal-Software-Labs/statetrace_django
 ```
 
 In Settings.py add statetrace django to installed apps and middleware.
