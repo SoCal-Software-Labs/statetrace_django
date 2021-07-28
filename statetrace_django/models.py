@@ -88,3 +88,16 @@ class Annotation(models.Model):
             action_version=action_version,
             action_length_ms=action_length_ms,
         )
+
+    @classmethod
+    def log_migration(
+        cls,
+        meta=None,
+        timestamp=None,
+    ):
+        return Annotation.objects.create(
+            kind="_st.app.mig",
+            id=new_id(),
+            timestamp=timestamp or timezone.now(),
+            meta=meta
+        )
