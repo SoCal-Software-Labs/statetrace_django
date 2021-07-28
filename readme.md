@@ -2,6 +2,9 @@
 
 Adds [Statetrace](https://statetrace.com) annotation functionality to Django applications.
 
+## Example
+
+An example can be found using a basic [polls](https://github.com/SoCal-Software-Labs/statetrace-example-django) app.
 
 ## Installation
 
@@ -26,6 +29,17 @@ MIDDLEWARE = [
 # Configure the link to the search page:
 STATETRACE_SEARCH_URL = "http://my-statetrace-deployment/organizations/1/environments/1/frames?database_id=1"
 
+```
+
+## Admin
+
+Integrate the admin to enable quick search lookups in the Django admin site.
+
+```python
+from statetrace_django.admin import StateTraceAdmin
+
+class QuestionAdmin(StateTraceAdmin):
+    pass
 ```
 
 ## Metadata
