@@ -130,3 +130,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 ```
+
+Then using `db` as the host when setting up the Statetrace connection
+
+![Screenshot from 2021-07-28 10-28-17](https://user-images.githubusercontent.com/496914/127368963-f0dfdab6-690b-4c47-849b-c5de0f6da006.png)
