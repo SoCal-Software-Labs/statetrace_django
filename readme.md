@@ -1,6 +1,6 @@
 # Statetrace Django
 
-Adds Statetrace annotation functionality to Django applications.
+Adds [Statetrace](https://statetrace.com) annotation functionality to Django applications.
 
 
 ## Installation
@@ -84,13 +84,15 @@ version: '3'
 services:
   web:
     build: .
-    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    # Give time for statetrace to create replication slot before running migrations
+    command: bash -c "sleep 10s && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
       - "8000:8000"
     depends_on:
       - db
+      - statetrace
 
   db:
     image: postgres
@@ -132,5 +134,6 @@ services:
       - "postgres"
       - "-p"
       - "5433"
+  
   
 ```
