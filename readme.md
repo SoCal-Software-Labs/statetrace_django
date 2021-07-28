@@ -1,6 +1,6 @@
-# StateTrace Django
+# Statetrace Django
 
-Adds StateTrace annotation functionality to Django applications.
+Adds Statetrace annotation functionality to Django applications.
 
 
 ## Installation
@@ -50,7 +50,7 @@ STATETRACE_SESSION_META = "myapp.statetrace.session_meta"
 
 ## Choosing which requests to annotate
 
-By default StateTrace annotates all `["POST", "PUT", "DELETE", "PATCH"]` requests. To change this, you can set a special function
+By default Statetrace annotates all `["POST", "PUT", "DELETE", "PATCH"]` requests. To change this, you can set a special function
 
 ```python
 BLACKLISTED = [...]
