@@ -1,5 +1,0 @@
-setup.py
-statetrace_django.egg-info/PKG-INFO
-statetrace_django.egg-info/SOURCES.txt
-statetrace_django.egg-info/dependency_links.txt
-statetrace_django.egg-info/top_level.txt
