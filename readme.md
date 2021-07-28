@@ -35,7 +35,7 @@ STATETRACE_SEARCH_URL = "http://my-statetrace-deployment/organizations/1/environ
 
 Integrate the admin to enable quick search lookups in the Django admin site.
 
-```
+```python
 from statetrace_django.admin import StateTraceAdmin
 
 class QuestionAdmin(StateTraceAdmin):
