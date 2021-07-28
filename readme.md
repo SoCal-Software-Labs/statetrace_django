@@ -38,7 +38,7 @@ def action_meta(request):
     return {"my custom action meta": {"arbitary json": request.META["SOME_META"]}}
 
 def session_meta(request):
-    return {"my custom session meta": {"some json": 456}}
+    return {"my custom session meta": 456}
 
 ```
 
@@ -71,4 +71,62 @@ Setting these variables will help you identify the point in your code when the t
 ```python
 STATETRACE_APPLICATION_ID = "git@github.com:our_org/our-prod-app.git" # Identify the code base
 STATETRACE_APPLICATION_VERSION = "1.0" # Should be a git tag or commit to identify the point in code
+```
+
+
+## Docker Compose
+
+Use Statetrace with Docker Compose and Django using the following template:
+
+```yaml
+version: '3'
+    
+services:
+  web:
+    build: .
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
+      - "-c"
+      - "max_wal_senders=1"
+      - "-c"
+      - "max_replication_slots=2"
+      - "-p"
+      - "5433"
+  
+  statetrace:
+    image: statetraceofficial/statetrace-beta
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@statetrace_db:5432/postgres
+      - SECRET_KEY_BASE=123456789123456789123456789123456789123456789123456789123456789123456789
+      - STATETRACE_DEMO_MODE=1
+      - PORT=9999
+    depends_on:
+      - statetrace_db
+      - db
+    ports:
+      - "9999:9999"
+
+  statetrace_db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 ```
