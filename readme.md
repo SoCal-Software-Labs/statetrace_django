@@ -2,7 +2,7 @@
 
 Adds [Statetrace](https://statetrace.com) annotation functionality to Django applications.
 
-Example
+## Example
 
 An example can be found using a basic [polls](https://github.com/SoCal-Software-Labs/statetrace-example-django) app.
 
