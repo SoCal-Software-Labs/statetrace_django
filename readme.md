@@ -107,13 +107,11 @@ services:
       - "max_wal_senders=1"
       - "-c"
       - "max_replication_slots=2"
-      - "-p"
-      - "5433"
   
   statetrace:
     image: statetraceofficial/statetrace-beta
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@statetrace_db:5432/postgres
+      - DATABASE_URL=postgres://postgres:postgres@statetrace_db:5433/postgres
       - SECRET_KEY_BASE=123456789123456789123456789123456789123456789123456789123456789123456789
       - STATETRACE_DEMO_MODE=1
       - PORT=9999
@@ -129,6 +127,12 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+
+    command:
+      - "postgres"
+      - "-p"
+      - "5433"
+  
 ```
 
 Then using `db` as the host when setting up the Statetrace connection
