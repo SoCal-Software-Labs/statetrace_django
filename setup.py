@@ -7,4 +7,5 @@ setuptools.setup(
     license="LICENSE.txt",
     description="Statetrace for Django",
     install_requires=["Django >= 3.0.0"],
+    package_data={"statetrace_django": ["templates/statetrace_django/change_form.html"]}
 )
