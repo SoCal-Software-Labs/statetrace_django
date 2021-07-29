@@ -18,7 +18,7 @@ In Settings.py add statetrace django to installed apps and middleware. Make sure
 ```python
 INSTALLED_APPS = [
     ...,
-    'statetrace_django',
+    'statetrace_django.apps.StatetraceConfig',
 ]
 
 MIDDLEWARE = [
