@@ -73,6 +73,7 @@ class Annotation(models.Model):
         action_url=None,
         action_method=None,
         action_version=None,
+        action_parent_id=None,
         meta=None,
         timestamp=None,
         action_length_ms=None,
@@ -87,6 +88,7 @@ class Annotation(models.Model):
             action_method=action_method,
             action_version=action_version,
             action_length_ms=action_length_ms,
+            action_parent_id=action_parent_id
         )
 
     @classmethod

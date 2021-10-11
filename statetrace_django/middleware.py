@@ -95,7 +95,6 @@ def statetrace_middleware(get_response):
                 response = get_response(request)
 
                 Annotation.log_action(
-                    parent_timestamp,
                     action_session_id=parent_id,
                     action_url=request.build_absolute_uri(),
                     action_method=request.method,
