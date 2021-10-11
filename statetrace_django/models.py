@@ -18,16 +18,16 @@ class Annotation(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     timestamp = models.DateTimeField()
-    id = models.IntegerField()
+    id = models.TextField()
     kind = models.TextField()
 
     meta = JSONField(null=True)
-    parent_id = models.IntegerField(null=True)
-    parent_timestamp = models.DateTimeField(null=True)
-
+    
+    action_session_id = models.IntegerField(null=True)
     action_url = models.TextField(null=True)
     action_method = models.TextField(null=True)
     action_version = models.TextField(null=True)
+    action_parent_id = models.TextField(null=True)
     action_length_ms = models.IntegerField(null=True)
 
     session_client_user_agent = models.TextField(null=True)
