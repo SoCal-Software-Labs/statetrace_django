@@ -45,7 +45,7 @@ class Annotation(models.Model):
         cls,
         actor_id=None,
         actor_full_name=None,
-        session_actor_email=None,
+        actor_email=None,
         actor_avatar=None,
         client_user_agent=None,
         application_id=None,
