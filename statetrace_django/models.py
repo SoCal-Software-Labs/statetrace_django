@@ -22,7 +22,7 @@ class Annotation(models.Model):
     kind = models.TextField()
 
     meta = JSONField(null=True)
-    
+
     action_session_id = models.IntegerField(null=True)
     action_url = models.TextField(null=True)
     action_method = models.TextField(null=True)
@@ -45,6 +45,7 @@ class Annotation(models.Model):
         cls,
         actor_id=None,
         actor_full_name=None,
+        session_actor_email=None,
         actor_avatar=None,
         client_user_agent=None,
         application_id=None,
@@ -59,6 +60,7 @@ class Annotation(models.Model):
             meta=meta,
             session_actor_id=actor_id and str(actor_id),
             session_actor_full_name=actor_full_name,
+            session_actor_email=actor_email,
             session_actor_avatar=actor_avatar,
             session_client_user_agent=client_user_agent,
             session_application_id=application_id,
@@ -67,8 +69,7 @@ class Annotation(models.Model):
     @classmethod
     def log_action(
         cls,
-        parent_timestamp,
-        parent_id,
+        action_session_id,
         action_url=None,
         action_method=None,
         action_version=None,
@@ -80,8 +81,7 @@ class Annotation(models.Model):
             kind="_st.app.act",
             id=new_id(),
             timestamp=timestamp or timezone.now(),
-            parent_id=parent_id,
-            parent_timestamp=parent_timestamp,
+            action_session_id=action_session_id,
             meta=meta,
             action_url=action_url,
             action_method=action_method,

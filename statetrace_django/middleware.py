@@ -45,6 +45,9 @@ def log_session(request):
         actor_id=str(user.pk)
         if user.is_authenticated
         else "session-" + request.session.session_key,
+        actor_email=user.email
+        if user.is_authenticated
+        else None,
         actor_full_name=(user.get_full_name() or user.username)
         if user.is_authenticated
         else None,
@@ -93,7 +96,7 @@ def statetrace_middleware(get_response):
 
                 Annotation.log_action(
                     parent_timestamp,
-                    parent_id,
+                    action_session_id,
                     action_url=request.build_absolute_uri(),
                     action_method=request.method,
                     action_version=application_version,
