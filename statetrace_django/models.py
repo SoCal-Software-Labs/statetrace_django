@@ -35,6 +35,7 @@ class Annotation(models.Model):
     session_application_id = models.TextField(null=True)
     session_actor_id = models.TextField(null=True)
     session_actor_full_name = models.TextField(null=True)
+    session_actor_email = models.TextField(null=True)
     session_actor_avatar = models.TextField(null=True)
 
     class Meta:
