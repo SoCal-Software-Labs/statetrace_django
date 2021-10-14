@@ -71,9 +71,9 @@ class Annotation(models.Model):
             kind="_st.app.act",
             id=new_id(),
             timestamp=timestamp or timezone.now(),
-            action_session_id=action_session_id,
             meta=meta,
             payload=dict(
+                action_session_id=action_session_id,
                 action_url=action_url,
                 action_method=action_method,
                 action_version=action_version,
