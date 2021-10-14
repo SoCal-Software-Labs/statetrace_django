@@ -41,7 +41,6 @@ class Annotation(models.Model):
     ):
         return Annotation.objects.create(
             kind="_st.app.sess",
-            session_application_type="python/django",
             id=new_id(),
             timestamp=timestamp or timezone.now(),
             meta=meta,
@@ -51,7 +50,8 @@ class Annotation(models.Model):
                 session_actor_email=actor_email,
                 session_actor_avatar=actor_avatar,
                 session_client_user_agent=client_user_agent,
-                session_application_id=application_id
+                session_application_id=application_id,
+                session_application_type="python/django",
             )
         )
 
