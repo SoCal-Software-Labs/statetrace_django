@@ -61,8 +61,9 @@ def log_session(request):
 @receiver(user_logged_in)
 def post_login(sender, user, request, **kwargs):
     annotation = log_session(request)
-    request.session["_st.session"] = [str(annotation.timestamp), annotation.id]
+    request.session["_st.session"] = annotation.id
     request.session.modified = True
+    request._should_set_cookie = True
 
 
 def process_session_frame(request):
@@ -71,9 +72,9 @@ def process_session_frame(request):
             request.session.create()
 
         annotation = log_session(request)
-        request.session["_st.session"] = [str(annotation.timestamp), annotation.id]
+        request.session["_st.session"] =  annotation.id
         request.session.modified = True
-    return tuple(request.session["_st.session"])
+    return request.session["_st.session"]
 
 
 def time_ms():
@@ -84,8 +85,8 @@ def statetrace_middleware(get_response):
     application_version = getattr(settings, "STATETRACE_APPLICATION_VERSION", None)
 
     def middleware(request):
-
-        (parent_timestamp, parent_id) = process_session_frame(request)
+        add_cookie ="_st.session" not in request.session
+        session_id = process_session_frame(request)
 
         if statetrace_filter_func(request):
             with transaction.atomic():
@@ -95,15 +96,21 @@ def statetrace_middleware(get_response):
                 response = get_response(request)
 
                 Annotation.log_action(
-                    action_session_id=parent_id,
+                    action_session_id=session_id,
                     action_url=request.build_absolute_uri(),
                     action_method=request.method,
                     action_version=application_version,
                     action_length_ms=time_ms() - start,
                     meta=action_meta,
                 )
+                if add_cookie or getattr(request, '_should_set_cookie', False):
+                    response.set_cookie("_st.session", request.session["_st.session"])
                 return response
         else:
-            return get_response(request)
+            resp = get_response(request)
+
+            if add_cookie or getattr(request, '_should_set_cookie', False):
+                resp.set_cookie("_st.session", request.session["_st.session"])
+            return resp
 
     return middleware

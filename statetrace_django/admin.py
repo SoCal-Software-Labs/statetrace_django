@@ -14,7 +14,7 @@ class StateTraceAdmin(admin.ModelAdmin):
                 "staterace_search_base_url": getattr(
                     settings,
                     "STATETRACE_SEARCH_URL",
-                    "http://localhost:9999/organizations/1/environments/1/frames?database_id=1",
+                    "http://localhost:4000/organizations/1/environments/1/db/1/outbound/1/search",
                 ),
                 "statetrace_object_pk": object_id,
                 "statetrace_table_name": self.model._meta.db_table,
